@@ -5,4 +5,5 @@ RUN mkdir -p /var/www/html
 WORKDIR /var/www/html
 COPY . . 
 EXPOSE 80
+EXPOSE 40000
 CMD ["python3","myscript.py","-p","80"]
