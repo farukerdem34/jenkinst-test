@@ -1,13 +1,12 @@
 pipeline {
-    agent {
-	    label "docker-agent"
+  agent {
+    label "docker-agent"
+  }
+  stages {
+    stage ('Run Docker Compose') {
+      steps{
+        sh 'sudo docker-compose up -d'
+      }
     }
-
-    stages {
-	stage('Docker Compose'){
-		echo "Running docker-compose.yml"
-		sh "docker-compose up -d"
-		echo "Docker compose completed."
-	}
- }
+  }
 }
