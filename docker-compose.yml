@@ -1,0 +1,10 @@
+services:
+  www:
+    build: .
+    ports:
+      - "80:80"
+    networks:
+      - devops
+networks:
+  devops:
+    driver: bridge

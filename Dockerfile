@@ -1,9 +1,8 @@
-FROM ubuntu:latest
+FROM python
 
-RUN apt-get update -y;apt-get upgrade -y; apt-get install python3 vim default-jre wget curl -y
+RUN apt-get update -y;apt-get upgrade -y
 RUN mkdir -p /var/www/html
 WORKDIR /var/www/html
 COPY . . 
 EXPOSE 80
-EXPOSE 40000
 CMD ["python3","myscript.py","-p","80"]
