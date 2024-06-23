@@ -14,7 +14,7 @@ pipeline {
     }
     stage('Trivy Repo Scan'){
       steps{
-        sh "docker run --rm -t aquasec/trivy repository --branch ${GIT_BRANCH} ${GIT_URL}"
+        sh "docker run --rm -t aquasec/trivy repository --branch v1 ${GIT_URL}"
       }
     }
     stage('Stop and Remove Existing Containers') {
