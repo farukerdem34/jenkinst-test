@@ -25,5 +25,10 @@ pipeline {
       echo "Baseling scan completed succesfully"
       }
     }
+    stage ('Trufflehog'){
+      steps{
+        sh "docker run --rm -it -v "$PWD:/pwd" trufflesecurity/trufflehog:latest github --repo https://github.com/farukerdem34/jenkinst-test"
+      }
+    }
   }
 }
