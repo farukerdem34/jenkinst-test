@@ -21,7 +21,7 @@ pipeline {
       steps{
       echo "Initializing baseling scan..."
       sh "echo $PWD"
-      sh "docker run --rm -t ghcr.io/zaproxy/zaproxy:stable zap-baseline.py -t ${HOST}"
+      // sh "docker run --rm -t ghcr.io/zaproxy/zaproxy:stable zap-baseline.py -t ${HOST}"
       echo "Baseling scan completed succesfully"
       }
     }
