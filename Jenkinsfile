@@ -5,6 +5,7 @@ pipeline {
   environment {
     HOST = "http://192.168.100.135"
     REPORT_DIR = "/home/jenkins/report"
+    BRANCH= "v1"
   }
   stages {
     stage('Trufflehog') {
@@ -14,7 +15,7 @@ pipeline {
     }
     stage('Trivy Repo Scan'){
       steps{
-        sh "docker run --rm -t aquasec/trivy repository --branch v1 ${GIT_URL}"
+        sh "docker run --rm -t aquasec/trivy repository --branch ${BRANCH} ${GIT_URL}"
       }
     }
     stage('Stop and Remove Existing Containers') {
