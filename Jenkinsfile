@@ -9,7 +9,12 @@ pipeline {
   stages {
     stage('Trufflehog') {
       steps {
-        sh "docker run --rm -v $PWD:/pwd trufflesecurity/trufflehog:latest github --json --repo ${GIT_URL} --branch=${GIT_BRANCH}"
+        sh "docker run --rm -v $PWD:/pwd trufflesecurity/trufflehog:latest github --json --repo ${GIT_URL}"
+      }
+    }
+    stage('Trivy Repo Scan'){
+      steps{
+        sh "docker run --rm -t aquasec/trivy repository --branch ${GIT_BRANCH} ${GIT_URL}"
       }
     }
     stage('Stop and Remove Existing Containers') {
