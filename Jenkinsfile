@@ -20,12 +20,8 @@ pipeline {
     stage ('Zaproxy Baseline Scan'){
       steps{
       echo "Initializing baseling scan..."
-      sh "rm -rf $REPORT_DIR/report"
-      sh "mkdir -p $REPORT_DIR/report"
-      sh "chmod 777 $REPORT_DIR/report"
-      sh "docker run --rm -v $REPORT_DIR/:/zap/wrk/:rw -t ghcr.io/zaproxy/zaproxy:stable zap-baseline.py -t ${HOST} -r $REPORT_DIR/report/testreport.html -w $REPORT_DIR/report/testreport.md -J $REPORT_DIR/report/testreport.json"
+      sh "docker run --rm -t ghcr.io/zaproxy/zaproxy:stable zap-baseline.py -t ${HOST}"
       echo "Baseling scan completed succesfully"
-      sh "cat $REPORT_DIR/testreport.md"
       }
     }
   }
