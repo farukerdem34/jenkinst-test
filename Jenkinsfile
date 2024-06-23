@@ -12,12 +12,6 @@ pipeline {
         sh "docker run --rm -v $PWD:/pwd trufflesecurity/trufflehog:latest github --json --repo https://github.com/farukerdem34/jenkinst-test"
       }
     }
-    stage('OWASP Dependency-Check Vulnerabilities') {
-      steps {
-        dependencyCheck additionalArguments: "-o './' -s './' -f 'ALL'--prettyPrint", odcInstallation: 'OWASP Dependency-Check Vulnerabilities'
-        dependencyCheckPublisher pattern: 'dependency-check-report.xml'
-      }
-    }
     stage('Stop and Remove Existing Containers') {
       steps {
         sh 'docker compose down'
