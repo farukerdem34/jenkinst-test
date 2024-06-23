@@ -6,6 +6,7 @@ pipeline {
     HOST = "http://192.168.100.135"
     REPORT_DIR = "/home/jenkins/report"
     BRANCH= "v1"
+    IMAGE_NAME= "simple-webserver"
   }
   stages {
     stage('Trufflehog') {
@@ -26,6 +27,11 @@ pipeline {
     stage('Run Docker Compose') {
       steps {
         sh 'docker compose up -d --build'
+      }
+    }
+    stage('Trivy Docker Image Scan'){
+      steps{
+        sh "trivy image ${IMAGE_NAME}"
       }
     }
     stage('Zaproxy Baseline Scan') {
