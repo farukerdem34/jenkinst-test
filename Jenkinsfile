@@ -20,14 +20,13 @@ pipeline {
     stage ('Zaproxy Baseline Scan'){
       steps{
       echo "Initializing baseling scan..."
-      sh "echo $PWD"
       // sh "docker run --rm -t ghcr.io/zaproxy/zaproxy:stable zap-baseline.py -t ${HOST}"
       echo "Baseling scan completed succesfully"
       }
     }
     stage ('Trufflehog'){
       steps{
-        sh "docker run --rm -it -v "${PWD}:/pwd" trufflesecurity/trufflehog:latest github --repo https://github.com/farukerdem34/jenkinst-test"
+        sh "docker run --rm -it -v $PWD:/pwd trufflesecurity/trufflehog:latest github --repo https://github.com/farukerdem34/jenkinst-test"
       }
     }
   }
