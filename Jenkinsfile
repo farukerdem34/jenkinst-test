@@ -9,7 +9,7 @@ pipeline {
   stages {
     stage('Trufflehog') {
       steps {
-        sh "docker run --rm -v $PWD:/pwd trufflesecurity/trufflehog:latest github --json --repo ${GIT_URL} --branch ${GIT_BRANCH}"
+        sh "docker run --rm -v $PWD:/pwd trufflesecurity/trufflehog:latest github --json --repo ${GIT_URL} --branch=${GIT_BRANCH}"
       }
     }
     stage('Stop and Remove Existing Containers') {
