@@ -4,7 +4,7 @@ pipeline {
   }
   environment{
     HOST="http://192.168.100.135"
-    REPORT_DIR="/home/jenkins"
+    REPORT_DIR="/home/jenkins/report"
   }
   stages {
     stage('Stop and Remove Existing Containers') {
@@ -20,7 +20,10 @@ pipeline {
     stage ('Zaproxy Baseline Scan'){
       steps{
       echo "Initializing baseling scan..."
-      sh "docker run --rm -v $REPORT_DIR/:/zap/wrk/:rw -t ghcr.io/zaproxy/zaproxy:stable zap-baseline.py -t ${HOST} -r testreport.html -w testreport.md -J testreport.json"
+      sh "rm -rf $REPORT_DIR/report"
+      sh "mkdir -p $REPORT_DIR/report"
+      sh "chmod 777 $REPORT_DIR/report"
+      sh "docker run --rm -v $REPORT_DIR/:/zap/wrk/:rw -t ghcr.io/zaproxy/zaproxy:stable zap-baseline.py -t ${HOST} -r $REPORT_DIR/report/testreport.html -w $REPORT_DIR/report/testreport.md -J $REPORT_DIR/report/testreport.json"
       echo "Baseling scan completed succesfully"
       sh "cat $REPORT_DIR/testreport.md"
       }
