@@ -29,9 +29,19 @@ pipeline {
         sh 'docker compose up -d --build'
       }
     }
+    stage('Snyk Security') {
+      steps {
+        echo 'Testing...'
+        snykSecurity(
+          snykInstallation: 'snyk@latest',
+          snykTokenId: 'farukerdem34-snyk-api-token'
+        )
+      }
+    }
     stage('Trivy Docker Image Scan'){
       steps{
-        sh "trivy image ${IMAGE_NAME}"
+        // No space on disk
+        // sh "trivy image ${IMAGE_NAME}"
       }
     }
     stage('Zaproxy Baseline Scan') {
