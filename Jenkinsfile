@@ -3,8 +3,7 @@ pipeline {
     label "docker-agent"
   }
   environment {
-    HOST = "http://192.168.100.135"
-    REPORT_DIR = "/home/jenkins/report"
+    HOST = "http://192.168.100.142"
     BRANCH= "v1"
     IMAGE_NAME= "simple-webserver"
   }
@@ -38,15 +37,13 @@ pipeline {
     stage('Trivy Docker Image Scan'){
       steps{
         echo "Trviy Docker Image Scan" 
-        // No space on disk
-        // sh "trivy image ${IMAGE_NAME}"
+        sh "trivy image simple-webserver --severity HIGH,CRITICAL ${IMAGE_NAME}"
       }
     }
     stage('Zaproxy Baseline Scan') {
       steps {
         echo "Initializing baseling scan..."
-        // Due to false positives, disabled.
-        // sh "docker run -v ${PWD}:/zap/wrk/:rw -t ghcr.io/zaproxy/zaproxy:stable zap-baseline.py -t ${HOST} -g gen.conf -r testreport.html"
+        sh "docker run -v ${PWD}:/zap/wrk/:rw -t ghcr.io/zaproxy/zaproxy:stable zap-baseline.py -t ${HOST} -g gen.conf -r testreport.html"
         echo "Baseling scan completed succesfully"
       }
     }
