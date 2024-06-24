@@ -37,6 +37,7 @@ pipeline {
     }
     stage('Trivy Docker Image Scan'){
       steps{
+        echo "Trviy Docker Image Scan" 
         // No space on disk
         // sh "trivy image ${IMAGE_NAME}"
       }
