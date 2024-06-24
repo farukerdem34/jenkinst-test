@@ -30,7 +30,7 @@ pipeline {
       }
     }
     stage('Snyk Security') {
-      steps {
+      steps{
         echo 'Testing...'
         snykSecurity(
           snykInstallation: 'snyk@latest',
