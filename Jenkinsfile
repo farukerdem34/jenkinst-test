@@ -31,7 +31,7 @@ pipeline {
     stage('Snyk Security') {
       steps {
         echo 'Testing...'
-        snykSecurity(snykInstallation: 'snyk@latest',snykTokenId: 'farukerdem34-snyk-api-token',targetFile: "simple-webserver")
+        snykSecurity(snykInstallation: 'snyk@latest',snykTokenId: 'farukerdem34-snyk-api-token')
       }
     }
     stage('Trivy Docker Image Scan'){
